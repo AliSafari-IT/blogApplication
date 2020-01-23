@@ -1,0 +1,163 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,300,400,600,700,800);
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i);
+
+@font-face {
+    font-family: 'calligrapherregular';
+    src: url('/include/fonts/calligra-webfont.woff2') format('woff2'),
+    url('/include/fonts/calligra-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url("https://netdna.bootstrapcdn.com/font-awesome/4.0.0/fonts/fontawesome-webfont.eot");
+    src: url("https://netdna.bootstrapcdn.com/font-awesome/4.0.0/fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("https://netdna.bootstrapcdn.com/font-awesome/4.0.0/fonts/fontawesome-webfont.woff") format("woff"), url("https://netdna.bootstrapcdn.com/font-awesome/4.0.0/fonts/fontawesome-webfont.ttf") format("truetype"), url("https://netdna.bootstrapcdn.com/font-awesome/4.0.0/fonts/fontawesome-webfont.svgfontawesomeregular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/***************************** for form validation before submitting form data ***************************************/
+/*
+font-family: 'Roboto', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Patua One', cursive;
+font-family: 'Fredoka One', cursive;
+font-family: 'Courgette', cursive;
+font-family: 'Satisfy', cursive;
+font-family: 'Archivo Black', sans-serif;
+font-family: 'Lalezar', cursive;
+font-family: 'Paytone One', sans-serif;
+font-family: 'Calistoga', cursive;
+font-family: 'Chewy', cursive;
+font-family: 'Sarabun', sans-serif;
+font-family: 'Carter One', cursive;
+font-family: 'Frijole', cursive;
+font-family: 'Aclonica', sans-serif;
+font-family: 'Lilita One', cursive;
+font-family: 'Rubik Mono One', sans-serif;
+font-family: 'Anonymous Pro', monospace;
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+.container{
+    /*margin-top: 15vmax;*/
+}
+/* Style the input container */
+.input-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Style the form icons */
+.icon {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* Style the input fields */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.input-field:focus {
+    border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+    background-color: dodgerblue;
+    font-weight: 900;
+    font-size: 120%;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+.disable {
+    pointer-events: none;
+    cursor: default;
+}
+
+/****************************** for footer *****************************************/
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #b3ff28;
+    color: #250501;
+    text-align: center;
+}
+
+/************************************************************************************/
+body {
+    /*position: relative;*/
+}
+
+.container .container-fluid {
+    /*padding-top: 70px;*/
+    /*padding-bottom: 70px;*/
+}
+
+#loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.75) url(/include/img/loader.gif) no-repeat center center;
+    z-index: 10000;
+}
+
+/***********************************************/
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/***********************************************/
