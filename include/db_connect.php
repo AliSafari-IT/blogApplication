@@ -6,7 +6,7 @@ $Database_name 	= "id12203368_ali_db";
 $Database_user 	= "id12203368_root";
 $Database_pass 	= "K18nT8r8";
 
-if ($_SERVER['SERVER_NAME'] = 'localhost'){
+if ($_SERVER['SERVER_NAME'] == 'localhost'){
     ////Local database
     $Database_host = "localhost";
     $Database_name = "simpleblogger";

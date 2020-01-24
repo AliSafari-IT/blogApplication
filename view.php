@@ -1,7 +1,7 @@
 <?php
 session_start();
 $id = (INT)$_GET['id'];
-$loggedUser = $_GET['loggedUser'];
+$postedBy = $_GET['postedBy'];
 
 if ($id < 1) {
     header("location: index.php");
@@ -56,7 +56,7 @@ include "include/functions.php";
                     if ($visibilityType === 'public') {
                         echo "<hr>";
                         echo '<div class="panel-info">';
-                        echo "<h3>".$row['postTitle']."</h3>";
+                        echo "<h3  style='font-weight: bold'>".$row['postTitle']."</h3>";
                         echo '</div> <div class="text-warning text-">';
                         echo "<p>$publishedDateTime (Posted by <span class='badge badge-secondary'>$username</span>)</p></div>";
                         echo '<div class="input-field">';
@@ -87,7 +87,7 @@ include "include/functions.php";
             ?>
         </div>
         <?php
-        if (isset($_SESSION['username']) && $loggedUser ==$_SESSION['username'] ) {
+        if (isset($_SESSION['username']) && $postedBy ==$_SESSION['username'] ) {
             ?>
             <div class="row">
                 <div class="col-md-1 text-center">
@@ -115,9 +115,13 @@ include "include/functions.php";
                     [Delete]
                 </div>
             </div>
-        <?php } ?>
+        <?php } else{?>
+            <div>
+                <p class="text-center text-info"><a href="index.php">[Homepage]</a></p>
+            </div>
+        <?php }?>
+
     </div>
-</div>
 
 <?php getFooter(); ?>
 

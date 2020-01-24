@@ -1,28 +1,23 @@
 <!-- Required meta tags -->
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<!--Always first jQuery THEN Bootstrap-->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<meta name="description" content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<title>Clean Blog - Start Bootstrap Theme</title>
 
-<!-- Material Design Bootstrap -->
-<link href="/include/css/mdb.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="include/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<script src="include/js/js.js"></script>
-<script src="include/lib/jquery.editable.min.js"></script>
+<!-- Custom fonts for this template -->
+<link href="include/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-<!--<link rel="stylesheet" href="include/css/entry.css">-->
-<link rel="stylesheet" href="include/css/style.css">
+<!-- Custom styles for this template -->
+<link href="include/css/clean-blog.min.css" rel="stylesheet">
+<link href="include/css/style.css" rel="stylesheet">
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Aclonica|Anonymous+Pro:400,700|Archivo+Black|Calistoga|Carter+One|Chewy|Courgette|Fredoka+One|Frijole|Lalezar|Lato:400,900|Lilita+One|Patua+One|Paytone+One|Poppins:400,900|Roboto+Condensed|Roboto:400,700,900|Rubik+Mono+One|Sarabun:400,700,800|Satisfy&display=swap');

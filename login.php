@@ -22,9 +22,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 
 <!--Main layout-->
 <main class="mt-5 pt-5">
-    <div class="container">
+    <div class="container my-4">
         <!--Section: Jumbotron-->
-        <section class="card wow fadeIn col-md-6 m-auto" style="background-image: url(include/img/bg/7.jpg);">
+        <section class="card wow fadeIn col-md-6 m-auto" style="background-image: url(include/img/bg/sectionBackground.jpg);">
 
             <!-- Content -->
             <div class="card-body text-white text-center py-3 px-3 my-5">

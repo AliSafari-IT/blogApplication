@@ -2,98 +2,147 @@
 session_start();
 include "include/functions.php";
 ?>
-
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php getHeader(); ?>
-    <title>Simple Blog Application</title>
+    <title>Blog Application</title>
 </head>
 <!-- The scrollable area -->
+
 <body>
+
 <?php getNavigation(); ?>
-<hr class='mb-5'>
-<div class="jumbotron jumbotron-fluid">
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('/include/img/bg/wallp.jpg')">
+    <div class="overlay"></div>
     <div class="container">
-        <p class="p-1"></p>
-        <h1>Blog Project in PHP using MySQL</h1>
-        <div>
-            <p>This is a simple blog project for my PHP end project.</p>
-            <ul>User type: user
-                <li>login: user</li>
-                <li>password: user</li>
-            </ul>
-            <ul>User type: moderator
-                <li>login: moderator</li>
-                <li>password: moderator</li>
-            </ul>
-            <ul>User type: admin
-                <li>login: admin</li>
-                <li>password: admin</li>
-            </ul>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Simple Blogger</h1>
+                    <span class="subheading">Simple blogger is an ideal place for bloggers, story tellers, travelers
+                        and writers to showcase their work in a simple design. So, if you are looking for personal
+                        blogging, then you can use this blog with a simple classic design to post your contents freely.</span>
+                </div>
+            </div>
         </div>
+    </div>
+</header>
 
-        <?php
-        include "include/db_connect.php";
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        Man must explore, and this is exploration at its greatest
+                    </h2>
+                    <h3 class="post-subtitle">
+                        Problems look mighty small from 150 miles up
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by
+                    <a href="#">Start Bootstrap</a>
+                    on September 24, 2019</p>
+            </div>
+            <hr>
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
+                    </h2>
+                </a>
+                <p class="post-meta">Posted by
+                    <a href="#">Start Bootstrap</a>
+                    on September 18, 2019</p>
+            </div>
+            <hr>
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        Science has not yet mastered prophecy
+                    </h2>
+                    <h3 class="post-subtitle">
+                        We predict too much for the next year and yet far too little for the next ten.
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by
+                    <a href="#">Start Bootstrap</a>
+                    on August 24, 2019</p>
+            </div>
+            <hr>
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">
+                        Failure is not an option
+                    </h2>
+                    <h3 class="post-subtitle">
+                        Many say exploration is part of our destiny, but it’s actually our duty to future generations.
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by
+                    <a href="#">Start Bootstrap</a>
+                    on July 8, 2019</p>
+            </div>
+            <hr>
+            <!-- Pager -->
+            <div class="clearfix">
+                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-        $stmt = $Database_con->prepare("SELECT * FROM posts order by postID desc");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows === 0) {
-            echo '<div class="panel-info text-danger">Nothing to display!</div>';
-            echo '<div class="text-success"><a href="newpost.php">Add New Post</a></div>';
-        } else {
-            while ($row = $result->fetch_assoc()) {
-                $postID = htmlentities($row['postID']);
-                $visibilityType = htmlentities($row['visibilityType']);
-                $postTitle = htmlentities($row['postTitle']);
-                $postContent = htmlentities($row['postContent']);
-                $username = htmlentities($row['username']);
-                $catID = htmlentities($row['catID']);
-                $publishedDateTime = htmlentities($row['publishedDateTime']);
-                $postViews = htmlentities($row['postViews']);
-                if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
-                    if ($visibilityType === 'public') {
-                        echo "<hr>";
-                        echo '<div class="panel-info">';
-                        echo "<h3><a href='view.php?id=$postID&loggedUser=$username'>" . $row['postTitle'] . "</a></h3>";
-                        echo '</div> <div class="text-warning text-">';
-                        echo "<p>$publishedDateTime (Posted by <span class='badge badge-secondary'>$username</span>)</p></div>";
-                        echo '<div style="height: 150px;overflow: hidden">';
+<hr>
 
-                        echo $row['postContent'];
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
-                        echo '</div><div class="text-warning">';
-                        echo "<a href='view.php?id=$postID&loggedUser=$username'>Read more...</a>";
+<!-- Bootstrap core JavaScript -->
+<script src="include/vendor/jquery/jquery.min.js"></script>
+<script src="include/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-                        echo "<hr></div>";
-                    }
-                } else {
-                    if ($username === $_SESSION["username"] || $visibilityType === 'public') {
-                        echo '<div class="panel-info">';
-                        echo "<h3><a href='view.php?id=$postID&loggedUser=$username'>" . $row['postTitle'] . "</a>";
-                        if ($visibilityType === 'private') {
-                            echo '<i class="material-icons" style="font-size:36px;color:red" data-toggle="tooltip" title="private post">lock</i></h3>';
-                        }
+<!-- Custom scripts for this template -->
+<script src="include/js/clean-blog.min.js"></script>
 
-                        echo '</div> <div class="text-warning text-">';
-                        echo "<p>$publishedDateTime (Posted by <span class='badge badge-secondary'>$username</span>)</p></div>";
-
-//                        echo substr($postContent, 0, 200) . "...";
-                        echo '<div style="height: 150px;overflow: hidden">';
-
-                        echo $row['postContent'];
-
-                        echo '</div><div class="text-warning">';
-                        echo "<a href='view.php?id=$postID&loggedUser=$username'>Read more...</a>";
-
-                        echo "<hr></div>";
-
-                    }
-                }
-            }
-        }
-        ?>
-    </div> <!--    /container-->
-</div> <!-- /jumbotron-->
 </body>
+
 </html>

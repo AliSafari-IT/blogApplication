@@ -5,12 +5,14 @@
 </div>
 <!--/.Footer-->
 
-<script src="include/js/myJQuery.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="include/lib/mdb.min.js"></script>
+<!--Always first jQuery THEN Bootstrap-->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- Bootstrap core JavaScript -->
+<script src="include/vendor/jquery/jquery.min.js"></script>
+<script src="include/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Initializations -->
-<script type="text/javascript">
-    // Animations initialization
-    new WOW().init();
-</script>
+<!-- Material Design Bootstrap -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+<!-- Custom scripts for this template -->
+<script src="include/js/clean-blog.min.js"></script>
