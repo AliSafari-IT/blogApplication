@@ -5,12 +5,21 @@
       <webServer id="35bd3eaf-1915-4653-afbe-8408138b90a3" name="Local" url="http://localhost/phpstorm/myBlogger/bloggerGithub/branches/">
         <fileTransfer port="0" mountedRoot="C:\wamp64\www\phpstorm\myBlogger\bloggerGithub\branches" accessType="MOUNT" />
       </webServer>
+      <webServer id="6aa3e989-e562-436b-b217-c85c4cd56562" name="Remote" url="http://simpleblogger.000webhost.com">
+        <fileTransfer host="files.000webhost.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
     </option>
     <groups>
       <group>
         <name>Servers</name>
         <servers>
           <name value="Local" />
+          <name value="Remote" />
         </servers>
       </group>
     </groups>

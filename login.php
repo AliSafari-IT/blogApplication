@@ -19,20 +19,23 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 
 <?php getNavigation(); ?>
 
-<div class="jumbotron jumbotron-fluid">
+
+<!--Main layout-->
+<main class="mt-5 pt-5">
     <div class="container">
-        <div class="panel-info">
-            <hr class="mb-5">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <hr class="mb-5">
-                    <h2 class="text-center" style="font-family: 'Lalezar', cursive; color: #401603">Sign in using email
-                        or username </h2>
-                    <hr class="mb-5">
+        <!--Section: Jumbotron-->
+        <section class="card wow fadeIn col-md-6 m-auto" style="background-image: url(include/img/bg/7.jpg);">
+
+            <!-- Content -->
+            <div class="card-body text-white text-center py-3 px-3 my-5">
+
+                <div class="col-md-10 m-auto">
+                    <h3>
+                        <strong>Sign in using email or username</strong>
+                    </h3>
                     <form class="form needs-validation" novalidate data-request="loginUser" data-url="include/api.php"
                           data-method="POST" id="FormLoginUser" autocomplete="on">
-                        <div class="form-group">
+                        <div class="form-group left">
                             <label for="email">E-mail | username</label>
                             <input data-data="emailUsername" type="text" class="form-control" id="emailUsername"
                                    placeholder="E-mail | username">
@@ -40,7 +43,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group left">
                             <label for="password">Password</label>
                             <input data-data="password" type="password" class="form-control" id="password"
                                    placeholder="Enter password " autocomplete="on">
@@ -53,11 +56,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 
                     </form>
                 </div>
-                <div class="col-md-3"></div>
             </div>
-        </div>
+            <!-- Content -->
+        </section>
+        <!--Section: Jumbotron-->
     </div>
-</div>
+</main>
+<!--Main layout-->
 
 <?php getFooter(); ?>
 <script>
