@@ -14,81 +14,60 @@ include "include/functions.php";
 <body>
 
 <?php getNavigation(); ?>
-
-<!-- Page Header -->
-<header class="masthead" style="background-image: url('/include/img/bg/wallp.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h1>Simple Blogger</h1>
-                    <span class="subheading">Simple blogger is an ideal place for bloggers, story tellers, travelers
-                        and writers to showcase their work in a simple design. So, if you are looking for personal
-                        blogging, then you can use this blog with a simple classic design to post your contents freely.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<?php getPageHeader(); ?>
 
 <!-- Main Content -->
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        Man must explore, and this is exploration at its greatest
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Problems look mighty small from 150 miles up
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on September 24, 2019</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                    </h2>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on September 18, 2019</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        Science has not yet mastered prophecy
-                    </h2>
-                    <h3 class="post-subtitle">
-                        We predict too much for the next year and yet far too little for the next ten.
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on August 24, 2019</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        Failure is not an option
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on July 8, 2019</p>
-            </div>
-            <hr>
+            <?php
+            include "include/db_connect.php";
+
+            $stmt = $Database_con->prepare("SELECT * FROM posts order by postID desc");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows === 0) {
+                echo '<div class="panel-info text-danger">Nothing to display!</div>';
+                echo '<div class="text-success"><a href="newpost.php">Add New Post</a></div>';
+            } else {
+                while ($row = $result->fetch_assoc()) {
+                    $postID = htmlentities($row['postID']);
+                    $visibilityType = htmlentities($row['visibilityType']);
+                    $postTitle = htmlentities($row['postTitle']);
+                    if ($postTitle == '') {
+                        $row['postTitle'] = "[Post without Title!]";
+                    }
+                    $postContent = htmlentities($row['postContent']);
+                    $username = htmlentities($row['username']);
+                    $catID = htmlentities($row['catID']);
+                    $publishedDateTime = htmlentities($row['publishedDateTime']);
+                    $postViews = htmlentities($row['postViews']);
+                    if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
+                        if ($visibilityType === 'public') { ?>
+                            <div class="post-preview">
+                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
+                                    <h2 class="post-title">
+                                        <?php echo $row['postTitle'] ?>
+                                    </h2>
+                                    <h3 class="post-subtitle" style="height: 150px;overflow: hidden">
+                                        <?php echo $row['postContent']; ?>
+                                    </h3>
+                                </a>
+                                <p class="post-meta">Posted by
+                                    <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
+                                                class="badge badge-primary p-1"><i class="fa fa-user"
+                                                                                   aria-hidden="true"></i> <?php echo $username; ?></span></a>
+                                    on <?php echo $publishedDateTime; ?></p>
+                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
+                                    more...</a>
+                            </div>
+                            <hr>
+                        <?php }
+                    }
+                }
+            } ?>
+
+
             <!-- Pager -->
             <div class="clearfix">
                 <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
@@ -98,43 +77,7 @@ include "include/functions.php";
 </div>
 
 <hr>
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <ul class="list-inline text-center">
-                    <li class="list-inline-item">
-                        <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-                        </a>
-                    </li>
-                </ul>
-                <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
-            </div>
-        </div>
-    </div>
-</footer>
+<?php getFooter(); ?>
 
 <!-- Bootstrap core JavaScript -->
 <script src="include/vendor/jquery/jquery.min.js"></script>

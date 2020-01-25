@@ -15,6 +15,15 @@ function getNavigation()
     include "navigation.php";
 }
 
+function getPageHeader()
+{
+    include "pageHeader.php";
+}
+function getPostMenuBg()
+{
+    include "postMenuBg.php";
+}
+
 function loginUser($emailUsername, $password)
 {
     include "db_connect.php";

@@ -105,14 +105,21 @@ li a {
     width: 4rem
 }
 
+hr {
+    display: block;
+    margin: 0.5em auto;
+    border-style: inset;
+    border-width: 20px;
+    color: #e60d09;
+}
 /****************************** for footer *****************************************/
 .footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #b3ff28;
-    color: #250501;
+    background-color: #223dd6;
+    color: #d60d07;
     text-align: center;
 }
 

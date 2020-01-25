@@ -7,7 +7,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 }
 ?>
 
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>

@@ -8,21 +8,22 @@ if ($id < 1) {
 }
 include "include/functions.php";
 ?>
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php getHeader(); ?>
-</head>
+    <title>Post <?php echo $id ?>: <?php echo $postedBy ?></title></head>
 
 <body>
 
 <?php getNavigation(); ?>
+<?php getPostMenuBg(); ?>
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <hr><hr>
-        <div class="panel-info">
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
             <?php
             include "include/db_connect.php";
             $updateViewStatement = "UPDATE posts SET postViews = postViews +1 WHERE postID = '$id'";
@@ -31,17 +32,16 @@ include "include/functions.php";
             $stmt = $Database_con->prepare("SELECT * FROM posts where postID = '$id'");
             $stmt->execute();
             $result = $stmt->get_result();
-            if ($result->num_rows === 0) {?>
-                <div class="panel">
+            if ($result->num_rows === 0) { ?>
+                <div class="post-preview">
                     <h1 class="text-danger">Warning!</h1>
-                    <hr>
-                    <div class="text-center h5">You are not allowed to modify this post. If you are the author of this post
+                    <div class="text-center h5">You are not allowed to modify this post. If you are the author of this
+                        post
                         then you most login first.
                     </div>
                 </div>
-            <?php
+                <?php
             } else {
-                echo "<hr>";
                 $row = $result->fetch_assoc();
                 $postID = htmlentities($row['postID']);
                 $visibilityType = htmlentities($row['visibilityType']);
@@ -53,47 +53,60 @@ include "include/functions.php";
                 $publishedDateTime = htmlentities($row['publishedDateTime']);
                 $postViews = htmlentities($row['postViews']);
                 if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
-                    if ($visibilityType === 'public') {
-                        echo "<hr>";
-                        echo '<div class="panel-info">';
-                        echo "<h3  style='font-weight: bold'>".$row['postTitle']."</h3>";
-                        echo '</div> <div class="text-warning text-">';
-                        echo "<p>$publishedDateTime (Posted by <span class='badge badge-secondary'>$username</span>)</p></div>";
-                        echo '<div class="input-field">';
-                        echo $row['postContent'];
-                        echo '</div><div class="text-warning">';
-                        echo '<div class="w3-text-grey">';
-                        echo "Page views: " . $postViews . "<br>";
-                        echo "$publishedDateTime</div>";
-                        echo "<hr></div>";
+                    if ($visibilityType === 'public') { ?>
+                        <div class="post-preview">
+
+                                <h2 class="post-title">
+                                    <?php echo $row['postTitle'] ?>
+                                </h2>
+                                <div class="post-subtitle">
+                                    <?php echo $row['postContent']; ?>
+                                </div>
+
+                            <p class="post-meta">Posted by
+                                <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
+                                            class="badge badge-primary p-1"><i class="fa fa-user"
+                                                                               aria-hidden="true"></i> <?php echo $username; ?></span></a>
+                                on <?php echo $publishedDateTime; ?></p>
+
+                        </div>
+
+
+                        <?php
                     }
                 } else {
                     echo "<hr>";
                     if ($username === $_SESSION["username"] || $visibilityType === 'public') {
-                        echo '<div class="panel-info">';
-                        echo "<h3>".$row['postTitle']."</h3>";
-                        echo '</div> <div class="text-warning text-">';
-                        echo "<p>$publishedDateTime (Posted by <span class='badge badge-secondary'>$username</span>)</p></div>";
-                        echo '<div class="input-field">';
-                        echo $row['postContent'];
-                        echo '</div><div class="text-warning">';
-                        echo '<div class="glyphicon-text-color">';
-                        echo "Page views: " . $postViews . "<br>";
-                        echo "$publishedDateTime</div>";
-                        echo "<hr></div>";
+                        ?>
+                        <div class="post-preview">
+                            <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
+                                <h2 class="post-title">
+                                    <?php echo $row['postTitle'] ?>
+                                </h2>
+                                <h3 class="post-subtitle">
+                                    <?php echo $row['postContent']; ?>
+                                </h3>
+                            </a>
+                            <p class="post-meta">Posted by
+                                <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
+                                            class="badge badge-primary p-1"><i class="fa fa-user"
+                                                                               aria-hidden="true"></i> <?php echo $username; ?></span></a>
+                                on <?php echo $publishedDateTime; ?></p>
+
+                        </div> <?php
                     }
                 }
             }
             ?>
         </div>
         <?php
-        if (isset($_SESSION['username']) && $postedBy ==$_SESSION['username'] ) {
+        if (isset($_SESSION['username']) && $postedBy == $_SESSION['username']) {
             ?>
             <div class="row">
                 <div class="col-md-1 text-center">
 
-                    <button style='font-size:24px' >
-                        <a href="editPost.php?id=<?php echo $id; ?>" >
+                    <button style='font-size:24px'>
+                        <a href="editPost.php?id=<?php echo $id; ?>">
                             <i class='fas fa-edit' style='font-size:48px;color:green'></i>
                         </a>
                     </button>
@@ -115,15 +128,15 @@ include "include/functions.php";
                     [Delete]
                 </div>
             </div>
-        <?php } else{?>
+        <?php } else { ?>
             <div>
                 <p class="text-center text-info"><a href="index.php">[Homepage]</a></p>
             </div>
-        <?php }?>
+        <?php } ?>
 
     </div>
 
-<?php getFooter(); ?>
+    <?php getFooter(); ?>
 
 </body>
 
