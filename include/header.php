@@ -20,3 +20,6 @@
 <style>
     @import url('https://fonts.googleapis.com/css?family=Aclonica|Anonymous+Pro:400,700|Archivo+Black|Calistoga|Carter+One|Chewy|Courgette|Fredoka+One|Frijole|Lalezar|Lato:400,900|Lilita+One|Patua+One|Paytone+One|Poppins:400,900|Roboto+Condensed|Roboto:400,700,900|Rubik+Mono+One|Sarabun:400,700,800|Satisfy&display=swap');
 </style>
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>

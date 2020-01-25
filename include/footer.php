@@ -49,3 +49,7 @@
 
 <!-- Custom scripts for this template -->
 <script src="include/js/clean-blog.min.js"></script>
+<script src="include/js/js.js"></script>
+
+<script src="include/lib/"></script>
+

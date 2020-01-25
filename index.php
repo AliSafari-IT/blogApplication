@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "include/functions.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,46 +25,73 @@ include "include/functions.php";
             include "include/db_connect.php";
 
             $stmt = $Database_con->prepare("SELECT * FROM posts order by postID desc");
+            if(!$stmt){
+                echo "Error!<div class='bg-danger text-center' style='height: 100px'>";
+                echo "<p class='pt-3'>Prepare failed: (". $Database_con->errno.") ".$Database_con->error."</p><br>";
+                echo "</div>";
+                die();
+            }
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result->num_rows === 0) {
-                echo '<div class="panel-info text-danger">Nothing to display!</div>';
+                echo '<div class="panel-info text-danger my-5">Nothing to display!</div>';
                 echo '<div class="text-success"><a href="newpost.php">Add New Post</a></div>';
             } else {
-                while ($row = $result->fetch_assoc()) {
-                    $postID = htmlentities($row['postID']);
-                    $visibilityType = htmlentities($row['visibilityType']);
-                    $postTitle = htmlentities($row['postTitle']);
-                    if ($postTitle == '') {
-                        $row['postTitle'] = "[Post without Title!]";
-                    }
-                    $postContent = htmlentities($row['postContent']);
-                    $username = htmlentities($row['username']);
-                    $catID = htmlentities($row['catID']);
-                    $publishedDateTime = htmlentities($row['publishedDateTime']);
-                    $postViews = htmlentities($row['postViews']);
-                    if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
-                        if ($visibilityType === 'public') { ?>
-                            <div class="post-preview">
-                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
-                                    <h2 class="post-title">
-                                        <?php echo $row['postTitle'] ?>
-                                    </h2>
-                                    <h3 class="post-subtitle" style="height: 150px;overflow: hidden">
-                                        <?php echo $row['postContent']; ?>
-                                    </h3>
-                                </a>
-                                <p class="post-meta">Posted by
-                                    <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
-                                                class="badge badge-primary p-1"><i class="fa fa-user"
-                                                                                   aria-hidden="true"></i> <?php echo $username; ?></span></a>
-                                    on <?php echo $publishedDateTime; ?></p>
-                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
-                                    more...</a>
-                            </div>
-                            <hr>
-                        <?php }
-                    }
+            while ($row = $result->fetch_assoc()) {
+                $postID = htmlentities($row['postID']);
+                $visibilityType = htmlentities($row['visibilityType']);
+                $postTitle = htmlentities($row['postTitle']);
+                if ($postTitle == '') {
+                    $row['postTitle'] = "[Post without Title!]";
+                }
+                $postContent = htmlentities($row['postContent']);
+                $username = htmlentities($row['username']);
+                $catID = htmlentities($row['catID']);
+                $publishedDateTime = htmlentities($row['publishedDateTime']);
+                $postViews = htmlentities($row['postViews']);
+                if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
+                    if ($visibilityType === 'public') { ?>
+                        <div class="post-preview">
+                            <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
+                                <h2 class="post-title">
+                                    <?php echo $row['postTitle'] ?>
+                                </h2>
+                                <h3 class="post-subtitle" style="height: 150px;overflow: hidden">
+                                    <?php echo $row['postContent']; ?>
+                                </h3>
+                            </a>
+                            <p class="post-meta">Posted by
+                                <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
+                                            class="badge badge-primary p-1"><i class="fa fa-user"
+                                                                               aria-hidden="true"></i> <?php echo $username; ?></span></a>
+                                on <?php echo $publishedDateTime; ?></p>
+                            <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
+                                more...</a>
+                        </div>
+                        <hr>
+                    <?php }
+                } else {
+                    if ($username === $_SESSION["username"] || $visibilityType === 'public') { ?>
+                        <div class="post-preview">
+                            <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
+                                <h2 class="post-title">
+                                    <?php echo $row['postTitle'] ?>
+                                </h2>
+                                <h3 class="post-subtitle" style="height: 150px;overflow: hidden">
+                                    <?php echo $row['postContent']; ?>
+                                </h3>
+                            </a>
+                            <p class="post-meta">Posted by
+                                <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
+                                            class="badge badge-primary p-1"><i class="fa fa-user"
+                                                                               aria-hidden="true"></i> <?php echo $username; ?></span></a>
+                                on <?php echo $publishedDateTime; ?></p>
+                            <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
+                                more...</a>
+                        </div>
+                        <hr>
+                        <?php
+                    }}
                 }
             } ?>
 

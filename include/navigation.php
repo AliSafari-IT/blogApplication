@@ -16,23 +16,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
                     </li>
-                <?php } else {
-                    if ($_SESSION['userType'] && ($_SESSION['userType'] === "admin" || $_SESSION['userType'] === "moderator")) {
-                        ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="setPostCategory.php">Modify Other Posts</a>
-                        </li>
-                    <?php } else if ($_SESSION['userType'] && $_SESSION['userType'] === "admin") { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="users.php">Members List</a>
-                        </li>
-                    <?php } ?>
+                <?php }
+                if (isset($_SESSION['loggedin']) && ($_SESSION['userType'] === "admin" || $_SESSION['userType'] === "moderator")){
+                    ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="newpost.php">Add New Post</a>
+                        <a class="nav-link" href="setPostCategory.php">Modify Other Posts</a>
                     </li>
+                <?php }
+                if (isset($_SESSION['loggedin']) && $_SESSION['userType'] === "admin") { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
+                        <a class="nav-link" href="users.php">Members List</a>
                     </li>
+                <?php }
+                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="newpost.php">Add New Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Logout</a>
+                </li>
                 <?php } ?>
             </ul>
             <!-- Right -->

@@ -11,57 +11,60 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 <html lang="en">
 
 <head>
-
     <?php getHeader(); ?>
+    <title>Login</title>
 </head>
 
 <body>
 
 <?php getNavigation(); ?>
+<?php getPostMenuBg(); ?>
 
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <section class="card wow fadeIn m-auto"
+                     style="background-image: url(include/img/bg/sectionBackground.jpg);">
 
-<!--Main layout-->
-<main class="mt-5 pt-5">
-    <div class="container my-4">
-        <!--Section: Jumbotron-->
-        <section class="card wow fadeIn col-md-6 m-auto" style="background-image: url(include/img/bg/sectionBackground.jpg);">
+                <!-- Content -->
+                <div class="card-body text-white text-center py-1 px-1 my-4">
 
-            <!-- Content -->
-            <div class="card-body text-white text-center py-3 px-3 my-5">
+                    <div class="col-md-10 m-auto">
+                        <h3>
+                            <strong>Sign in using email or username</strong>
+                        </h3>
+                        <form class="form needs-validation" novalidate data-request="loginUser"
+                              data-url="include/api.php"
+                              data-method="POST" id="FormLoginUser" autocomplete="on">
+                            <div class="form-group left">
+                                <label for="email">E-mail | username</label>
+                                <input data-data="emailUsername" type="text" class="form-control" id="emailUsername"
+                                       placeholder="E-mail | username">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
 
-                <div class="col-md-10 m-auto">
-                    <h3>
-                        <strong>Sign in using email or username</strong>
-                    </h3>
-                    <form class="form needs-validation" novalidate data-request="loginUser" data-url="include/api.php"
-                          data-method="POST" id="FormLoginUser" autocomplete="on">
-                        <div class="form-group left">
-                            <label for="email">E-mail | username</label>
-                            <input data-data="emailUsername" type="text" class="form-control" id="emailUsername"
-                                   placeholder="E-mail | username">
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
-                        </div>
+                            <div class="form-group left">
+                                <label for="password">Password</label>
+                                <input data-data="password" type="password" class="form-control" id="password"
+                                       placeholder="Enter password " autocomplete="on">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
 
-                        <div class="form-group left">
-                            <label for="password">Password</label>
-                            <input data-data="password" type="password" class="form-control" id="password"
-                                   placeholder="Enter password " autocomplete="on">
-                            <div class="valid-feedback">Valid.</div>
-                            <div class="invalid-feedback">Please fill out this field.</div>
-                        </div>
+                            <button type="submit" class="btn btn-primary" id="submitLogin">Login</button>
+                            <div class="alert alert-primary response d-none" role="alert"></div>
 
-                        <button type="submit" class="btn btn-primary" id="submitLogin">Login</button>
-                        <div class="alert alert-primary response d-none" role="alert"></div>
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <!-- Content -->
-        </section>
-        <!--Section: Jumbotron-->
+                <!-- Content -->
+            </section>
+            <!--Section: Jumbotron-->
+        </div>
     </div>
-</main>
+</div>
 <!--Main layout-->
 
 <?php getFooter(); ?>
