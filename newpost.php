@@ -3,10 +3,10 @@ include "include/functions.php";
 logincheck();
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <?php getHeader(); ?>
     <style>
         * {
@@ -43,20 +43,18 @@ logincheck();
         }
     </style>
 
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.js"></script>
+    <title>New Post</title>
 </head>
 
 <body>
 
 <?php getNavigation(); ?>
+<?php getPostMenuBg(); ?>
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <hr>
-        <hr style="height: 50px">
-        <div class="panel-info">
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
 
             <h3 class="note-icon-summernote text-success text-center">  Write your new post here</h3>
 
@@ -77,8 +75,8 @@ logincheck();
                     Post Content place
                 </div>
                 <div class="form-group" id="newPostTitleGroup2">
-                    <textarea id="newPostTitleEditor" placeholder="New Post Title place"></textarea>
-                    <label for="postTitle" style="font-size: 11px">Post Title</label>
+                    <label for="newPostTitleEditor">Title</label><textarea id="newPostTitleEditor" placeholder="New Post Title place"></textarea>
+                    <label for="newPostTitleInput" style="font-size: 11px">Post Title</label>
                     <input data-data="newPostTitleInput" type="text" class="form-control" id="newPostTitleInput" placeholder="Post Title">
                 </div>
 

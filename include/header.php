@@ -12,6 +12,7 @@
 <link href="include/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="include/css/clean-blog.min.css" rel="stylesheet">
@@ -20,6 +21,3 @@
 <style>
     @import url('https://fonts.googleapis.com/css?family=Aclonica|Anonymous+Pro:400,700|Archivo+Black|Calistoga|Carter+One|Chewy|Courgette|Fredoka+One|Frijole|Lalezar|Lato:400,900|Lilita+One|Patua+One|Paytone+One|Poppins:400,900|Roboto+Condensed|Roboto:400,700,900|Rubik+Mono+One|Sarabun:400,700,800|Satisfy&display=swap');
 </style>
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>

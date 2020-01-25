@@ -51,5 +51,5 @@
 <script src="include/js/clean-blog.min.js"></script>
 <script src="include/js/js.js"></script>
 
-<script src="include/lib/"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.js"></script>
