@@ -20,7 +20,7 @@ include "include/functions.php";
 <!-- Main Content -->
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-8 col-md-10 mx-auto appendData">
             <?php
             include "include/db_connect.php";
 
@@ -58,7 +58,7 @@ include "include/functions.php";
                     $postViews = htmlentities($row['postViews']);
                     if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
                         if ($visibilityType === 'public') { ?>
-                            <div class="post-preview">
+                            <div class="post-preview post" id="postID-<?php echo $postID; ?>">
                                 <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
                                     <h2 class="post-title">
                                         <?php echo $row['postTitle'] ?>
@@ -75,11 +75,10 @@ include "include/functions.php";
                                 <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
                                     more...</a>
                             </div>
-                            <hr>
                         <?php }
                     } else {
                         if ($username === $_SESSION["username"] || $visibilityType === 'public') { ?>
-                            <div class="post-preview">
+                            <div class="post-preview post" id="postID-<?php echo $postID; ?>">
                                 <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
                                     <h2 class="post-title">
                                         <?php echo $row['postTitle'] ?>
@@ -96,7 +95,6 @@ include "include/functions.php";
                                 <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
                                     more...</a>
                             </div>
-                            <hr>
                             <?php
                         }
                     }
@@ -105,11 +103,12 @@ include "include/functions.php";
                 } ?>
                 <!-- Pager -->
                 <div class="clearfix">
-                    <h1 id="loadMore" class="btn btn-primary float-right">Load More <i class="fas fa-hand-pointer"
-                                                                                       style="font-size:28px; "></i>
+                    <h1 id="loadMore" class="btn btn-primary float-right">
+                        Load More
+                        <i class="fas fa-hand-pointer" style="font-size:28px; "></i>
                     </h1>
-                    <input type="hidden" id="row" value="0">
-                    <input type="hidden" id="all" value="<?php echo $totalNr; ?>">
+                    <input id="row" style="display: none" value="0">
+                    <input id="all" style="display: none" value="<?php echo $totalNr; ?>">
                 </div>
             <?php } ?>
         </div>
@@ -120,49 +119,76 @@ include "include/functions.php";
 <?php getFooter(); ?>
 
 <script>
+    //$(document).ready(function(){
+    //    let row = Number(showTillThisRowNr.val());
+    //    const totalNr = Number(allPostNrs.val());
+    //    const postPerPage = 3;
+    //    $("#loadMore").click(function(){
+    //        row = row + postPerPage;
+    //        $.ajax({
+    //            type:"POST",
+    //            url:"loadMore.php",
+    //            data:{
+    //
+    //                'row':row
+    //            },
+    //            sucess: function(data){
+    //                $('#postID-<?php //echo $postID; ?>//').append(data);
+    //            }
+    //
+    //        });
+    //    });
+    //});
+
+    const loadMore = $('#loadMore');
+    const showTillThisRowNr = $('#row');
+    const allPostNrs = $('#all')
 
     $(document).ready(function () {
         // Load more data
-        const LoadMore = $('#loadMore');
-        LoadMore.click(function () {
-            var row = Number($('#row').val());
-            var totalNr = Number($('#all').val());
-            var postPerPage = 3;
-            row = row + postPerPage;
+        loadMore.click(function (e) {
+            e.preventDefault();
 
+            let row = Number(showTillThisRowNr.val());
+            const totalNr = Number(allPostNrs.val());
+            const postPerPage = 3;
+            row = row + postPerPage;
+            console.log(row);   //--------> for debugging
             if (row <= totalNr) {
-                $("#row").val(row);
+                showTillThisRowNr.val(row);
+                console.log(showTillThisRowNr);   //--------> for debugging
 
                 $.ajax({
                     url: 'loadMore.php',
                     type: 'post',
                     data: {row: row},
                     beforeSend: function () {
-                        $("#loadMore").text("Loading...");
+                        loadMore.text("Loading...");
                     },
                     success: function (response) {
+
                         // Setting little delay while displaying new content
                         setTimeout(function () {
                             // appending posts after last post with class="post"
                             $(".post:last").after(response).show().fadeIn("slow");
 
-                            var rowno = row + postPerPage;
+                            const rowNr = row + postPerPage;
 
                             // checking row value is greater than totalNr or not
-                            if (rowno > totalNr) {
+                            if (rowNr > totalNr) {
 
                                 // Change the text and background
-                                LoadMore.text("Hide");
-                                LoadMore.css("background", "darkorchid");
+                                loadMore.text("Hide");
+                                loadMore.css("background", "darkorchid");
                             } else {
-                                LoadMore.text("Load more");
+                                loadMore.text("Load more");
                             }
                         }, 2000);
 
                     }
                 });
             } else {
-                LoadMore.text("Loading...");
+                loadMore.text("Loading...");
 
                 // Setting little delay while removing contents
                 setTimeout(function () {
@@ -174,9 +200,9 @@ include "include/functions.php";
                     $("#row").val(0);
 
                     // Change the text and background
-                    LoadMore.text("Load more");
-                    LoadMore.css("background", "#15a9ce");
-
+                    loadMore.text("Load more");
+                    loadMore.css("background", "#15a9ce");
+                    location.reload();
                 }, 2000);
 
             }

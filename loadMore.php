@@ -1,13 +1,12 @@
 <?php
-
+session_start();
 // configuration
 include "include/db_connect.php";
 
 $row = $_POST['row'];
 $postPerPage = 3;
-
 // selecting posts
-$query = 'SELECT * FROM posts limit ' . $row . ',' . $postPerPage;
+$query = 'SELECT * FROM posts limit '.$row.','.$postPerPage;
 $result = mysqli_query($Database_con, $query);
 
 $html = '';
@@ -29,7 +28,7 @@ while ($row = mysqli_fetch_array($result)) {
     // Creating HTML structure
     if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
         if ($visibilityType === 'public') {
-            $html .= '<div class="post-preview">';
+            $html .= '<div class="post-preview post" id="postID-'.$postID.'>';
             $html .= '<a href=view.php?id=' . $postID . '&postedBy=' . $username . '>';
             $html .= '<h2 class="post-title">';
             $html .= $row['postTitle'];
@@ -45,11 +44,10 @@ while ($row = mysqli_fetch_array($result)) {
             $html .= 'on ' . $publishedDateTime . '</p>';
             $html .= '<a href="view.php?id="' . $postID . '&postedBy=' . $username . '>Read more...</a>';
             $html .= '</div>';
-            $html .= '<hr>';
         }
     } else {
         if ($username === $_SESSION["username"] || $visibilityType === 'public') {
-            $html .= '<div class="post-preview">';
+            $html .= '<div class="post-preview post" id="postID-'.$postID.'>';
             $html .= '<a href="view.php?id="' . $postID . '&postedBy=' . $username . '>';
             $html .= '<h2 class="post-title post">';
             $html .= $row['postTitle'];
@@ -65,8 +63,7 @@ while ($row = mysqli_fetch_array($result)) {
             $html .= 'on ' . $publishedDateTime . '</p>';
             $html .= '<a href="view.php?id="'.$postID.'&postedBy='.$username.' class="more">Read more...</a>';
             $html .= '</div>';
-            $html .= '<hr>';
         }
     }
 }
-echo $html;
+echo "<div>$html</div>";
