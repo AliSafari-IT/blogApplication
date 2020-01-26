@@ -65,7 +65,7 @@ nav a {
     text-decoration: none;
 }
 
-nav i{
+nav i {
     font-size: 24px;
     height: 20px;
     width: 20px;
@@ -112,6 +112,7 @@ hr {
     border-width: 20px;
     color: #e60d09;
 }
+
 /****************************** for footer *****************************************/
 .footer {
     position: fixed;
@@ -135,6 +136,28 @@ hr {
     width: 100%;
     background: rgba(0, 0, 0, 0.75) url(/include/img/loader.gif) no-repeat center center;
     z-index: 10000;
+}
+
+/* Load more */
+.load-more {
+    width: 99%;
+    background: #15a9ce;
+    text-align: center;
+    color: white;
+    padding: 10px 0;
+    font-family: sans-serif;
+}
+
+.load-more:hover {
+    cursor: pointer;
+}
+
+/* more link */
+.more {
+    color: blue;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-size: 16px;
 }
 
 /***********************************************/

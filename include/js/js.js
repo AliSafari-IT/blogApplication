@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     // ********************* Add New Post *********************
     let newPostTitleInDiv = $("#newPostTitleInDiv");
     newPostTitleInDiv.hide();
@@ -356,7 +357,6 @@ $(document).ready(function () {
         });
 
     });
-
 });
 
 
