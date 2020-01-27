@@ -36,8 +36,7 @@ include "include/functions.php";
                 <div class="post-preview">
                     <h1 class="text-danger">Warning!</h1>
                     <div class="text-center h5">You are not allowed to modify this post. If you are the author of this
-                        post
-                        then you most login first.
+                        post then you most login first.
                     </div>
                 </div>
                 <?php
@@ -56,18 +55,27 @@ include "include/functions.php";
                     if ($visibilityType === 'public') { ?>
                         <div class="post-preview">
 
-                                <h2 class="post-title">
-                                    <?php echo $row['postTitle'] ?>
-                                </h2>
-                                <div class="post-subtitle">
-                                    <?php echo $row['postContent']; ?>
-                                </div>
-
+                            <h2 class="post-title">
+                                <?php echo $row['postTitle'] ?>
+                            </h2>
+                            <div style="font-family:'Roboto', sans-serif;font-size: 15px;">
+                                <?php echo $row['postContent']; ?>
+                            </div>
+                            <h4 class="text-right">
+                                <button onclick="function goBack() {window.history.back();} goBack()"
+                                        class="btn btn-blue">
+                                    Go Back
+                                </button>
+                            </h4>
                             <p class="post-meta">Posted by
-                                <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
-                                            class="badge badge-primary p-1"><i class="fa fa-user"
-                                                                               aria-hidden="true"></i> <?php echo $username; ?></span></a>
-                                on <?php echo $publishedDateTime; ?></p>
+                                <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>>
+                                    <span class="badge badge-primary p-1">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <?php echo $username; ?>
+                                    </span>
+                                </a>
+                                on <?php echo $publishedDateTime; ?>
+                            </p>
 
                         </div>
 
@@ -79,14 +87,18 @@ include "include/functions.php";
                     if ($username === $_SESSION["username"] || $visibilityType === 'public') {
                         ?>
                         <div class="post-preview">
-                            <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
-                                <h2 class="post-title">
-                                    <?php echo $row['postTitle'] ?>
-                                </h2>
-                                <h3 class="post-subtitle">
-                                    <?php echo $row['postContent']; ?>
-                                </h3>
-                            </a>
+                            <h2 class="post-title">
+                                <?php echo $row['postTitle'] ?>
+                            </h2>
+                            <div style="font-family:'Roboto', sans-serif;font-size: 15px;">
+                                <?php echo $row['postContent']; ?>
+                            </div>
+                            <h4 class="text-right">
+                                <button onclick="function goBack() {window.history.back();} goBack()"
+                                        class="btn btn-blue">
+                                    Go Back
+                                </button>
+                            </h4>
                             <p class="post-meta">Posted by
                                 <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
                                             class="badge badge-primary p-1"><i class="fa fa-user"
@@ -99,44 +111,35 @@ include "include/functions.php";
             }
             ?>
         </div>
-        <?php
-        if (isset($_SESSION['username']) && $postedBy == $_SESSION['username']) {
-            ?>
-            <div class="row">
-                <div class="col-md-1 text-center">
-
-                    <button style='font-size:24px'>
-                        <a href="editPost.php?id=<?php echo $id; ?>">
-                            <i class='fas fa-edit' style='font-size:48px;color:green'></i>
-                        </a>
-                    </button>
-                </div>
-                <div class="col-md-1 text-center">
-                    <button style='font-size:24px'>
-                        <a onclick="return confirm('Are you sure you want to delete this post?');"
-                           href="deletePost.php?id=<?php echo $id; ?>">
-                            <i class='fas fa-eraser' style='font-size:48px;color:red'></i>
-                        </a>
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1 text-center">
-                    [Edit]
-                </div>
-                <div class="col-md-1 text-center">
-                    [Delete]
-                </div>
-            </div>
-        <?php } else { ?>
-            <div>
-                <p class="text-center text-info"><a href="index.php">[Homepage]</a></p>
-            </div>
-        <?php } ?>
-
     </div>
+    <?php
+    if (isset($_SESSION['username']) && $postedBy == $_SESSION['username']) {
+        ?>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-1 text-center">
 
-    <?php getFooter(); ?>
+                <button style='font-size:24px'>
+                    <a href="editPost.php?id=<?php echo $id; ?>">
+                        <i class='fas fa-edit' style='font-size:48px;color:green' title="Edit the Post"></i>
+                    </a>
+                </button>
+
+                <button style='font-size:24px'>
+                    <a onclick="return confirm('Are you sure you want to delete this post?');"
+                       href="deletePost.php?id=<?php echo $id; ?>">
+                        <i class='fas fa-eraser' style='font-size:48px;color:red' title="Delete the Post"></i>
+                    </a>
+                </button>
+            </div>
+        </div>
+    <?php } else { ?>
+        <div>
+            <p class="text-center text-info"><a href="index.php">[Homepage]</a></p>
+        </div>
+    <?php } ?>
+</div>
+<?php getFooter(); ?>
 
 </body>
 

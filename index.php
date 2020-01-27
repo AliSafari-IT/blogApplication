@@ -62,11 +62,14 @@ include "include/functions.php";
                             <div class="post-preview post" id="postID-<?php echo $postID; ?>">
                                 <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
                                     <h2 class="post-title">
-                                        <?php echo $row['postTitle'] ?>
+                                        <?php echo html_entity_decode($postTitle); ?>
                                     </h2>
                                     <h3 class="post-subtitle" style="height: 150px;overflow: hidden">
-                                        <?php echo $row['postContent']; ?>
+                                        <?php echo html_entity_decode($postContent); ?>
                                     </h3>
+                                </a>
+                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>
+                                    <span class="text-primary">Read more...</span>
                                 </a>
                                 <p class="post-meta">Posted by
                                     <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>>
@@ -77,9 +80,6 @@ include "include/functions.php";
                                     </a>
                                     on <?php echo $publishedDateTime; ?>
                                 </p>
-                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>
-                                    Read more...
-                                </a>
                             </div>
                         <?php }
                     } else {
@@ -87,11 +87,14 @@ include "include/functions.php";
                             <div class="post-preview post" id="postID-<?php echo $postID; ?>">
                                 <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
                                     <h2 class="post-title">
-                                        <?php echo $row['postTitle'] ?>
+                                        <?php echo html_entity_decode($postTitle); ?>
                                     </h2>
                                     <h3 class="post-subtitle" style="height: 150px;overflow: hidden">
-                                        <?php echo $row['postContent']; ?>
+                                        <?php echo html_entity_decode($postContent); ?>
                                     </h3>
+                                </a>
+                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>
+                                    <span class="text-primary">Read more...</span>
                                 </a>
                                 <p class="post-meta">Posted by
                                     <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>>
@@ -104,9 +107,6 @@ include "include/functions.php";
                                     </a>
                                     on <?php echo $publishedDateTime; ?>
                                 </p>
-                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>
-                                    Read more...
-                                </a>
                             </div>
                             <?php
                         }
@@ -115,7 +115,7 @@ include "include/functions.php";
                 <!-- Pager -->
                 <div class="clearfix">
                     <h1 id="loadMore" class="btn btn-primary float-right">
-                        Load More
+                        Load Previous Posts
                         <i class="fas fa-hand-pointer" style="font-size:28px; "></i>
                     </h1>
                     <input id="row" style="display: none" value="0">
@@ -130,28 +130,8 @@ include "include/functions.php";
 <?php getFooter(); ?>
 
 <script>
-    //$(document).ready(function(){
-    //    let row = Number(showTillThisRowNr.val());
-    //    const totalNr = Number(allPostNrs.val());
-    //    const postPerPage = 3;
-    //    $("#loadMore").click(function(){
-    //        row = row + postPerPage;
-    //        $.ajax({
-    //            type:"POST",
-    //            url:"loadMore.php",
-    //            data:{
-    //
-    //                'row':row
-    //            },
-    //            sucess: function(data){
-    //                $('#postID-<?php //echo $postID; ?>//').append(data);
-    //            }
-    //
-    //        });
-    //    });
-    //});
 
-    const loadMore = $('#loadMore');
+    const loadMore = $("#loadMore");
     const showTillThisRowNr = $('#row');
     const allPostNrs = $('#all')
 
