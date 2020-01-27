@@ -16,6 +16,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.php">Register</a>
+                    </li>
                 <?php }
                 if (isset($_SESSION['loggedin']) && ($_SESSION['userType'] === "admin" || $_SESSION['userType'] === "moderator")){
                     ?>

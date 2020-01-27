@@ -41,8 +41,9 @@ include "include/functions.php";
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result->num_rows === 0) {
-                echo '<div class="panel-info text-danger my-5">Nothing to display!</div>';
-                echo '<div class="text-success"><a href="newpost.php">Add New Post</a></div>';
+                echo '<div class="post-preview border px-5 pb-5 border-danger post">';
+                echo '<div class="panel-info my-5">Nothing to display!</div>';
+                echo '<div class="text-success text-center"><a href="newpost.php" class="btn btn-lg btn-blue">Add New Post</a></div>';
             } else {
                 while ($row = $result->fetch_assoc()) {
                     $postID = htmlentities($row['postID']);
@@ -56,7 +57,7 @@ include "include/functions.php";
                     $catID = htmlentities($row['catID']);
                     $publishedDateTime = htmlentities($row['publishedDateTime']);
                     $postViews = htmlentities($row['postViews']);
-                    if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
+                    if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
                         if ($visibilityType === 'public') { ?>
                             <div class="post-preview post" id="postID-<?php echo $postID; ?>">
                                 <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>>
@@ -68,12 +69,17 @@ include "include/functions.php";
                                     </h3>
                                 </a>
                                 <p class="post-meta">Posted by
-                                    <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
-                                                class="badge badge-primary p-1"><i class="fa fa-user"
-                                                                                   aria-hidden="true"></i> <?php echo $username; ?></span></a>
-                                    on <?php echo $publishedDateTime; ?></p>
-                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
-                                    more...</a>
+                                    <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>>
+                                        <span class="badge badge-primary p-1">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <?php echo $username; ?>
+                                        </span>
+                                    </a>
+                                    on <?php echo $publishedDateTime; ?>
+                                </p>
+                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>
+                                    Read more...
+                                </a>
                             </div>
                         <?php }
                     } else {
@@ -88,18 +94,23 @@ include "include/functions.php";
                                     </h3>
                                 </a>
                                 <p class="post-meta">Posted by
-                                    <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>><span
-                                                class="badge badge-primary p-1"><i class="fa fa-user"
-                                                                                   aria-hidden="true"></i> <?php echo $username; ?></span></a>
-                                    on <?php echo $publishedDateTime; ?></p>
-                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>Read
-                                    more...</a>
+                                    <a href=<?php echo "user.php?id=" . $postID . "&postedBy=" . $username; ?>>
+                                        <span
+                                                class="badge badge-primary p-1">
+                                            <i class="fa fa-user" aria-hidden="true">
+
+                                            </i> <?php echo $username; ?>
+                                        </span>
+                                    </a>
+                                    on <?php echo $publishedDateTime; ?>
+                                </p>
+                                <a href=<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username; ?>>
+                                    Read more...
+                                </a>
                             </div>
                             <?php
                         }
                     }
-
-
                 } ?>
                 <!-- Pager -->
                 <div class="clearfix">
