@@ -117,7 +117,7 @@ include "include/functions.php";
         ?>
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-1 text-center">
+            <div class="col-md-3 text-center">
 
                 <button style='font-size:24px'>
                     <a href="editPost.php?id=<?php echo $id; ?>">

@@ -2,42 +2,24 @@
 session_start();
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['userType'] === 'admin') {
     ?>
+    <!DOCTYPE html>
     <html lang="en">
 
     <head>
-
         <?php getHeader(); ?>
-
-        <script>
-            $(document).ready(function () {
-
-                $.ajax({
-                    method: "post",
-                    url: 'include/api.php',
-                    data: {request: 'getUsers', data: ''}
-                }).done(function (jsonData) {
-
-                    var data = JSON.parse(jsonData);
-                    // console.log(data['data']);
-                    $(".table-users").html(generateTable(data['data']))
-                });
-            });
-
-        </script>
-
+        <title>List of All Users</title>
     </head>
 
     <body>
 
     <?php getNavigation(); ?>
-    <p class="p-5"></p>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="col-12">
-
+    <?php getPostMenuBg(); ?>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto appendData">
             <h3>List of All Users</h3>
-
             <div class="table-users"></div>
-
         </div>
     </div>
 
@@ -68,6 +50,26 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['userType
     <p class="text-center text-info p-1"><a href="login.php">[Login]</a></p>
     <p class="text-center text-info p-1"><a href="register.php">[Register]</a></p>
 </div>
+
+<?php getFooter(); ?>
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            method: "post",
+            url: 'include/api.php',
+            data: {request: 'getUsers', data: ''}
+        }).done(function (jsonData) {
+
+            var data = JSON.parse(jsonData);
+            // console.log(data['data']);
+            $(".table-users").html(generateTable(data['data']))
+        });
+    });
+
+</script>
+
 </body>
     <?php
 }
