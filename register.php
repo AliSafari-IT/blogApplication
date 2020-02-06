@@ -14,7 +14,8 @@
 <main class="mt-5 pt-5">
     <div class="container  my-4">
         <!--Section: Jumbotron-->
-        <section class="card wow fadeIn" style="background-image: url(include/img/bg/postBg.jpg);">
+        <section class="card wow fadeIn"
+                 style="background-image: url(include/img/bg/postBg.jpg);">
 
             <!-- Content -->
             <div class="card-body text-white text-center py-3 px-3 my-3">

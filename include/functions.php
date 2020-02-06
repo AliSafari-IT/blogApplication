@@ -24,6 +24,13 @@ function getPostMenuBg()
     include "postMenuBg.php";
 }
 
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 function loginUser($emailUsername, $password)
 {
     include "db_connect.php";

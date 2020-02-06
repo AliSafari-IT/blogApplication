@@ -12,13 +12,38 @@ include "functions.php";
 
 if ($request == "loginUser") {
 
-    $response['response'] = loginUser($data['emailUsername'], $data['password']);
-    if ($response['response']) {
-        $response['message'] = "Login successful!";
-        $response['redirect'] = "index.php";
+    /* E-mail | Username  validation*/
+    $isEmail = test_input($data['emailUsername']);
+    $emailUsername = $data["emailUsername"];
+    $isPassword = test_input($data["password"]);
+    $password = $data["password"];
+    if (empty($password)) {
+        $response['message'] = "Password is required!";
+
+    }elseif (empty($emailUsername)) {
+        $response['message'] = "E-mail | Username is required!";
+    } elseif (filter_var($emailUsername, FILTER_VALIDATE_EMAIL)){
+        $response['response'] = loginUser($data['emailUsername'], $data['password']);
+        if ($response['response']) {
+            $response['message'] = "Login successful!";
+            $response['redirect'] = "index.php";
+        } else {
+            $response['message'] = "Error login! Check your email/password combination!";
+        }
     } else {
-        $response['message'] = "Error login";
+        // check if username only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z0-9]*$/",$emailUsername)) {
+            $response['message'] = "Only letters and numbers without space are allowed for a username!";
+        }
+        $response['response'] = loginUser($data['emailUsername'], $data['password']);
+        if ($response['response']) {
+            $response['message'] = "Login successful!";
+            $response['redirect'] = "index.php";
+        } else {
+            $response['message'] = "Error login! Check your username/password combination!";
+        }
     }
+
 
 } else if ($request == "registerUser") {
 
@@ -53,7 +78,7 @@ if ($request == "loginUser") {
 } else if ($request == "newPost") {
 
     session_start();
-    $response['response'] = newPost($_SESSION['username'], $data['visibilityType'], $data['newPostTitleInput'],$data['newPostContentInput']);
+    $response['response'] = newPost($_SESSION['username'], $data['visibilityType'], $data['newPostTitleInput'], $data['newPostContentInput']);
 
     if ($response['response']) {
         $response['message'] = "Message Posted";
@@ -86,14 +111,14 @@ if ($request == "loginUser") {
     $postContent = $data['newPostContent'];
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
         $loggedUser = $_SESSION['username'];
-    }else{
-        $loggedUser="publicPost";
+    } else {
+        $loggedUser = "publicPost";
     }
     $response['response'] = updatePost($id, $postTitle, $postContent);
     if ($response['response']) {
         $response['message'] = "Post Updated";
 
-        $response['redirect'] = "view.php?id=".$id."&loggedUser=".$loggedUser;
+        $response['redirect'] = "view.php?id=" . $id . "&loggedUser=" . $loggedUser;
     } else {
         $response['message'] = "Error Updating the Post!";
     }
