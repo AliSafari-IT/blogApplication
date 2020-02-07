@@ -89,7 +89,7 @@ if ($request == "loginUser") {
 
 } else if ($request == "deletePost") {
 
-    $id = $data['id'];
+    $id = $data['userID'];
     $response['response'] = deletePost($id);
 
     if ($response['response']) {
@@ -98,9 +98,10 @@ if ($request == "loginUser") {
         $response['message'] = "Error Deleting Message";
     }
 
-} else if ($request == "getUser") {
+} else if ($request == "getUserProfile") {
 
-    $id = $data['id'];
+    $id = $_SESSION['userID'];
+//    echo "id".$id;
     $response['data'] = getUser($id);
 
 } else if ($request == "updatePost") {
