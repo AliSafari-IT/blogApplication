@@ -139,7 +139,25 @@ function getUser($id)
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
-var_dump($result);
+    if ($result->num_rows === 0) {
+        return false;
+    } else {
+        while ($row = $result->fetch_assoc()) {
+            return $row;
+        }
+    }
+    $stmt->close();
+
+}
+
+function getUserProfile($username)
+{
+    include "db_connect.php";
+
+    $stmt = $Database_con->prepare("SELECT * FROM users WHERE username = ? LIMIT 1");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
     if ($result->num_rows === 0) {
         return false;
     } else {

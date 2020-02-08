@@ -13,6 +13,7 @@
 <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-bs4.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Vollkorn:400i,700, 900" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="include/css/clean-blog.min.css" rel="stylesheet">
