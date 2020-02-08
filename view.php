@@ -13,7 +13,8 @@ include "include/functions.php";
 
 <head>
     <?php getHeader(); ?>
-    <title>Post <?php echo $id ?>: <?php echo $postedBy ?></title></head>
+    <title>Post <?php echo $id ?>: <?php echo $postedBy ?></title>
+</head>
 
 <body>
 

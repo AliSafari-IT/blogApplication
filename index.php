@@ -129,7 +129,7 @@ include "include/functions.php";
 <hr>
 <?php getFooter(); ?>
 
-<script>
+<script type="text/javascript">
 
     const loadMore = $("#loadMore");
     const showTillThisRowNr = $('#row');

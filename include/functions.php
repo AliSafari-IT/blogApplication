@@ -24,6 +24,13 @@ function getPostMenuBg()
     include "postMenuBg.php";
 }
 
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 function loginUser($emailUsername, $password)
 {
     include "db_connect.php";
@@ -38,7 +45,7 @@ function loginUser($emailUsername, $password)
     }
 
     $stmt->execute();
-    $result = $stmt->get_result();
+    $result = $stmt -> get_result();
 
     if ($result->num_rows === 0) {
         session_start();
@@ -128,11 +135,29 @@ function getUser($id)
 
     include "db_connect.php";
 
-    $stmt = $Database_con->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
+    $stmt = $Database_con->prepare("SELECT * FROM users WHERE userID = ? LIMIT 1");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        return false;
+    } else {
+        while ($row = $result->fetch_assoc()) {
+            return $row;
+        }
+    }
+    $stmt->close();
 
+}
+
+function getUserProfile($username)
+{
+    include "db_connect.php";
+
+    $stmt = $Database_con->prepare("SELECT * FROM users WHERE username = ? LIMIT 1");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
     if ($result->num_rows === 0) {
         return false;
     } else {

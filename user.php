@@ -6,32 +6,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     <!DOCTYPE html>
     <html lang="en">
     <head>
-
         <?php getHeader(); ?>
-
-        <script>
-            $(document).ready(function () {
-
-                $.ajax({
-                    method: "post",
-                    url: 'include/api.php',
-                    data: {request: 'getUserProfile', data: ''}
-                }).done(function (jsonData) {
-
-                    var data = JSON.parse(jsonData);
-                    console.log(data['data']);
-                    $(".table-users").html(generateTable(data['data']))
-                });
-            });
-
-        </script>
         <title>User Profile</title>
-
     </head>
 
     <body>
 
     <?php getNavigation(); ?>
+    <?php getPostMenuBg(); ?>
+
     <p class="p-5"></p>
     <div class="jumbotron jumbotron-fluid">
         <div class="col-12">
@@ -44,7 +27,23 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     </div>
 
     <?php getFooter(); ?>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("Ajax for adding user profile");
 
+            $.ajax({
+                method: "post",
+                url: 'include/api.php',
+                data: {request: 'getUserProfile', data: ''}
+            }).done(function (jsonData) {
+
+                var data = JSON.parse(jsonData);
+                console.log(data['data']);
+                $(".table-users").html(generateTable(data['data']))
+            });
+        });
+
+    </script>
     </body>
 
     </html>

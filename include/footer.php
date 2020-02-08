@@ -30,7 +30,16 @@
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Ali SAFARI 2020</p>
+            </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+                <div class="border-top pt-5">
+                    <p class="copyright"><small>
+                            Copyright &copy;<script>document.write(new Date().getFullYear().toString());</script>
+                            All rights reserved | This Blogger is made for personal development <br>in PHP-MySQL, jQuery, Ajax and Bootstrap.
+                        </small></p>
+                </div>
             </div>
         </div>
     </div>
