@@ -118,7 +118,7 @@ $addressCountry = $userProfile['addressCountry'];
                     <div class="row form-group">
                         <div class="col-md-12 ">
                             <button type="button" id="updateProfile" class="btn btn-info btn-md text-white hoverable" title="If you want to change your personal/account details click here!">
-                                <a href=<?php echo 'userProfileChange.php?username=' . $_SESSION["username"]; ?> >Modify Profile Details</a>
+                                <a href="<?php echo 'userProfileChange.php?username=' . $_SESSION["username"]; ?>" >Modify Profile Details</a>
                             </button>
                         </div>
                     </div>
