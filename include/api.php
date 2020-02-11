@@ -49,19 +49,29 @@ if ($request == "loginUser") {
     $email = $data["email"];
     $iEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
     $username = filter_var($data["username"], FILTER_SANITIZE_STRING);
-    if (empty($firstname) || empty($lastname)) {
+    $password = filter_var($data["password"], FILTER_SANITIZE_STRING);
+    $confPassword = filter_var($data["confPassword"], FILTER_SANITIZE_STRING);
+    if (empty($firstname) || empty($lastname)) {    // **** First/Last names validation
         $response['message'] = "First/Last names are required!";
     } else if (!preg_match("/^[a-zA-Z -]*$/", $firstname) || !preg_match("/^[a-zA-Z -]*$/", $lastname)) {
         $response['message'] = "Use only letters for First/Last names!";
-    } elseif (!$iEmail) {
+    } elseif (!$iEmail) {   // ************************ email validation
         $response['message'] = "$email is not a valid email address!";
     } else if (checkEmailAlreadyTaken($email)) {
         $response['message'] = "< $email > is already used, please register using another email!";
-    } elseif (empty($username)) {
+    } elseif (empty($username)) {  // username validation
         $response['message'] = "username is required!";
-    } elseif (checkUsernameAlreadyTaken) {
+    } elseif (checkUsernameAlreadyTaken($username)) {
         $response['message'] = "< $username > is already used, please register using another username!";
-    } else {
+    } elseif (empty($password)) {  // username validation
+        $response['message'] = "Password is required!";
+    } elseif (strlen($password)<4) {  // Password validation
+        $response['message'] = "Use a minimum password length of 4 or more characters!";
+    } elseif (empty($confPassword)) {  // Password confirmation validation
+        $response['message'] = "Password confirmation is required!";
+    }   elseif ($confPassword !== $password) {  // Password confirmation validation
+        $response['message'] = "Passwords do not match!";
+    }  else {
 
         $response['response'] = registerUser(
             $data['firstname'],
