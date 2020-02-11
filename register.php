@@ -1,16 +1,4 @@
-<?php include "include/functions.php";
-// validation complete
-if (isset($_POST['submit'])) {
-    if ($msg_firstname == "" && $msg2_firstname == "") {
-        $msg_success = "You filled this form up correctly";
-    }else{
-        header("location: include/api.php");
-        die();
-    }
-}
-
-
-?>
+<?php include "include/functions.php"; ?>
 
 <html lang="en">
 
