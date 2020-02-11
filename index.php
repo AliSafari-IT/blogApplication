@@ -16,7 +16,12 @@ include "include/functions.php";
 
 <?php getNavigation(); ?>
 <?php getPageHeader(); ?>
-
+<script>
+    const jsFrame = new JSFrame();
+    jsFrame.showToast({
+        html: 'This site is not yet operational!', align: 'top', duration: 5000
+    });
+</script>
 <!-- Main Content -->
 <div class="container">
     <div class="row">

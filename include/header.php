@@ -22,3 +22,6 @@
 <style>
     @import url('https://fonts.googleapis.com/css?family=Aclonica|Anonymous+Pro:400,700|Archivo+Black|Calistoga|Carter+One|Chewy|Courgette|Fredoka+One|Frijole|Lalezar|Lato:400,900|Lilita+One|Patua+One|Paytone+One|Poppins:400,900|Roboto+Condensed|Roboto:400,700,900|Rubik+Mono+One|Sarabun:400,700,800|Satisfy&display=swap');
 </style>
+
+<!--You can show toast with JsFrame.js-->
+<script src="https://riversun.github.io/jsframe/jsframe.js"></script>

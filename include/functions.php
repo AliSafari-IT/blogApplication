@@ -24,13 +24,6 @@ function getPostMenuBg()
     include "postMenuBg.php";
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
 function loginUser($emailUsername, $password)
 {
     include "db_connect.php";
@@ -75,7 +68,7 @@ function loginUser($emailUsername, $password)
     $stmt->close();
 }
 
-function registerUser($firstname, $lastname, $email, $username, $password)
+function registerUser($firstname, $lastname, $email, $username, $password,$addressStreet,$addressHouseNr,$addressCity,$addressPostalCode,$addressCountry,$phoneGsmNr)
 {
 
     include "db_connect.php";
@@ -84,6 +77,8 @@ function registerUser($firstname, $lastname, $email, $username, $password)
     $lastname = ucwords($lastname);
     $email = strtolower($email);
     $username = strtolower($username);
+    $addressCity = ucwords($addressCity);
+    $addressCountry = ucwords($addressCountry);
 
     $stmt = $Database_con->prepare("SELECT * FROM users WHERE email = ? or username=?");
     $stmt->bind_param("ss", $email, $username);
@@ -93,9 +88,9 @@ function registerUser($firstname, $lastname, $email, $username, $password)
     if ($result->num_rows === 0) {
 
         $stmt = $Database_con->
-        prepare("INSERT INTO users (firstname,lastname,email,username,password,userType) VALUES(?,?,?,?,?,DEFAULT)");
+        prepare("INSERT INTO users (firstname,lastname,email,username,password,userType,addressStreet,addressHouseNr,addressCity,addressPostalCode,addressCountry,phoneGsmNr) VALUES(?,?,?,?,?,DEFAULT,?,?,?,?,?,?)");
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bind_param("sssss", $firstname, $lastname, $email, $username, $password);
+        $stmt->bind_param("sssssssssss", $firstname, $lastname, $email, $username, $password,$addressStreet,$addressHouseNr,$addressCity,$addressPostalCode,$addressCountry,$phoneGsmNr);
         $stmt->execute();
         $stmt->close();
 
@@ -148,6 +143,46 @@ function getUser($id)
     }
     $stmt->close();
 
+}
+
+function checkEmailAlreadyTaken($email)
+{
+
+    include "db_connect.php";
+
+    $stmt = $Database_con->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        $stmt->close();
+        return false;
+    } else {
+        while ($row = $result->fetch_assoc()) {
+            $stmt->close();
+            return true;
+        }
+    }
+}
+
+function checkUsernameAlreadyTaken($username)
+{
+
+    include "db_connect.php";
+
+    $stmt = $Database_con->prepare("SELECT * FROM users WHERE username = ? LIMIT 1");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        $stmt->close();
+        return false;
+    } else {
+        while ($row = $result->fetch_assoc()) {
+            $stmt->close();
+            return true;
+        }
+    }
 }
 
 function getUserProfile($username)

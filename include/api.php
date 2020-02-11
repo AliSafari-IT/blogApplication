@@ -13,16 +13,14 @@ include "functions.php";
 if ($request == "loginUser") {
 
     /* E-mail | Username  validation*/
-    $isEmail = test_input($data['emailUsername']);
     $emailUsername = $data["emailUsername"];
-    $isPassword = test_input($data["password"]);
     $password = $data["password"];
     if (empty($password)) {
         $response['message'] = "Password is required!";
 
-    }elseif (empty($emailUsername)) {
+    } elseif (empty($emailUsername)) {
         $response['message'] = "E-mail | Username is required!";
-    } elseif (filter_var($emailUsername, FILTER_VALIDATE_EMAIL)){
+    } elseif (filter_var($emailUsername, FILTER_VALIDATE_EMAIL)) {
         $response['response'] = loginUser($data['emailUsername'], $data['password']);
         if ($response['response']) {
             $response['message'] = "Login successful!";
@@ -32,7 +30,7 @@ if ($request == "loginUser") {
         }
     } else {
         // check if username only contains letters and whitespace
-        if (!preg_match("/^[a-zA-Z0-9]*$/",$emailUsername)) {
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $emailUsername)) {
             $response['message'] = "Only letters and numbers without space are allowed for a username!";
         }
         $response['response'] = loginUser($data['emailUsername'], $data['password']);
@@ -46,19 +44,45 @@ if ($request == "loginUser") {
 
 
 } else if ($request == "registerUser") {
-
-    $response['response'] = registerUser(
-        $data['firstname'],
-        $data['lastname'],
-        $data['email'],
-        $data['username'],
-        $data['password']
-    );
-    if ($response['response']) {
-        $response['message'] = "User Registered Successfully!";
-        $response['redirect'] = "login.php";
+    $firstname = filter_var($data["firstname"], FILTER_SANITIZE_STRING);
+    $lastname = filter_var($data["lastname"], FILTER_SANITIZE_STRING);
+    $email = $data["email"];
+    $iEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $username = filter_var($data["username"], FILTER_SANITIZE_STRING);
+    if (empty($firstname) || empty($lastname)) {
+        $response['message'] = "First/Last names are required!";
+    } else if (!preg_match("/^[a-zA-Z -]*$/", $firstname) || !preg_match("/^[a-zA-Z -]*$/", $lastname)) {
+        $response['message'] = "Use only letters for First/Last names!";
+    } elseif (!$iEmail) {
+        $response['message'] = "$email is not a valid email address!";
+    } else if (checkEmailAlreadyTaken($email)) {
+        $response['message'] = "< $email > is already used, please register using another email!";
+    } elseif (empty($username)) {
+        $response['message'] = "username is required!";
+    } elseif (checkUsernameAlreadyTaken) {
+        $response['message'] = "< $username > is already used, please register using another username!";
     } else {
-        $response['message'] = "Error: either email or username is already taken!";
+
+        $response['response'] = registerUser(
+            $data['firstname'],
+            $data['lastname'],
+            $data['email'],
+            $data['username'],
+            $data['password'],
+            $data['addressStreet'],
+            $data['addressHouseNr'],
+            $data['addressCity'],
+            $data['addressPostalCode'],
+            $data['addressCountry'],
+            $data['phoneGsmNr']
+        );
+
+        if ($response['response']) {
+            $response['message'] = "User Registered Successfully!";
+            $response['redirect'] = "login.php";
+        } else {
+            $response['message'] = "Error: either email or username is already taken!";
+        }
     }
 
 } else if ($request == "getUsers") {
@@ -103,6 +127,14 @@ if ($request == "loginUser") {
     $id = $_SESSION['userID'];
 //    echo "id".$id;
     $response['data'] = getUser($id);
+
+} else if ($request == "updateUserDetails") {
+    session_start();
+
+
+    $username = $_SESSION['username'];
+
+    $response['data'] = getUserProfile($username);
 
 } else if ($request == "updatePost") {
     session_start();

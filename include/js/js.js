@@ -327,6 +327,52 @@ $(document).ready(function () {
 
     });
 
+    $(".hoverable").hover(
+        function () {
+            $(this).addClass("hoverStyle");
+        }, function () {
+            $(this).removeClass("hoverStyle");
+        }
+    );
+
+    $(document).on('submit', '#updateUserDetailsForm', function (e) {
+        console.log("Ajax for the User Details Update in userProfileChange.php from js.js");
+
+        e.preventDefault();
+        self = this;
+        var request = $(this).data("request");
+        var url = $(this).data("url");
+        var method = $(this).data("method");
+        var data = {};
+        $.each($('input'), function (key, value) {
+            console.log(key + ':' + $(value).val());
+        });
+        $(this).find('input').each(function (key, value) {
+            if (key == 0 || key == 13 || key==26){
+            data[$(value).data("data")] = $(value).val();
+            };
+        });
+        console.log(data);
+
+        $.ajax({
+            method: method,
+            url: url,
+            data: {request: request, data: data}
+        }).done(function (jsonData) {
+
+            var data = JSON.parse(jsonData);
+            // console.log(data);
+
+            if (data['message']) {
+                showToast(data['message']);
+            }
+            if (data['redirect']) {
+                window.location.href = data['redirect'];
+            }
+
+        });
+
+    });
 
     $(document).on('click', '.post .actionbutton', function () {
 
@@ -396,12 +442,12 @@ function showToast(message) {
     $(".toast").remove();
 
     var toastHtml =
-        `<div class="toast" style="position:absolute;top:20%;right:5%" data-delay="10000">
+        `<div class="toast col padding" style="position:absolute;top:25%;right:5%; border: orangered 2px solid" data-delay="10000">
                             <div class="toast-header">
-                                <strong class="mr-auto text-primary">Notification</strong>
+                                <strong class="mr-auto text-primary font-weight-bold" style="font-size: 18px;">Notification</strong>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
                             </div>
-                            <div class="toast-body">
+                            <div class="toast-body padding" style="font-size: large; background-color: yellow; color: red">
                                 {{message}}
                             </div>
                         </div>`

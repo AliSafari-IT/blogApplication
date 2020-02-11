@@ -35,23 +35,41 @@ $addressCountry = $userProfile['addressCountry'];
             background-color: whitesmoke;
             border-radius: 10px;
         }
+
         #updateProfile {
             float: left;
         }
+
         #updateProfile:hover {
             background-color: whitesmoke;
         }
+
         .hoverStyle {
             border-radius: 15px;
             border-style: groove;
             width: 100%;
-            /*background-color: whitesmoke;*/
+            background-color: whitesmoke;
             color: #090ca1;
         }
+
         label {
             font-size: 14px;
-            font-family: SansSerief;
+            font-family: SansSerief, serif;
             font-weight: 900;
+            color: whitesmoke;
+        }
+
+        .postList {
+            font-size: 14px;
+        }
+
+        .postList:hover {
+            font-family: 'Carter One', cursive;
+            color: #63ff34;
+            font-size: 16px;
+            margin-left: 5px;
+        }
+        .list-group a:hover {
             color: whitesmoke;
         }
     </style>
@@ -67,7 +85,7 @@ $addressCountry = $userProfile['addressCountry'];
             <div class="col-lg-6 bg-primary">
                 <form action="#" class="p-3 contact-form">
 
-                    <h2 class="h4 mb-3 heading">User profile </h2>
+                    <div class="h1 mb-3 ChewyFont">User profile</div>
                     <div class="row form-group">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="fname">First Name</label>
@@ -104,49 +122,101 @@ $addressCountry = $userProfile['addressCountry'];
                                    disabled>
                         </div>
                     </div>
+
                     <div class="row list-group">
                         <div class="col-md-12">
                             Address:
-                            <ul>
-                                <li class="col-md-12 pt-1 m-1 w-75" title="Street and house number"><?php echo $addressStreet ?>, <?php echo $addressHouseNr ?> </li>
-                                <li class="col-md-12 pt-1 m-1 w-75" title="Postal code and city name"><?php echo $addressPostalCode ?>, <?php echo $addressCity ?></li>
-                                <li class="col-md-12 pt-1 m-1 w-75" title="Country"><?php echo $addressCountry ?></li>
-                            </ul>
+                            <?php if (!empty($addressStreet) && !empty($addressHouseNr) && !empty($addressPostalCode) && !empty($addressCity) && !empty($addressCountry)) { ?>
+                                <ul>
+                                    <li class="col-md-12 pt-1 m-1 w-75"
+                                        title="Street and house number"><?php echo $addressStreet ?>
+                                        , <?php echo $addressHouseNr ?> </li>
+                                    <li class="col-md-12 pt-1 m-1 w-75"
+                                        title="Postal code and city name"><?php echo $addressPostalCode ?>
+                                        , <?php echo $addressCity ?></li>
+                                    <li class="col-md-12 pt-1 m-1 w-75"
+                                        title="Country"><?php echo $addressCountry ?></li>
+                                </ul>
+                            <?php } else { ?>
+                                <div>
+                                    <p>There is no address details to display.</p>
+                                    <p><a href="userProfileChange.php">Add your address</a></p>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-12 ">
-                            <button type="button" id="updateProfile" class="btn btn-info btn-md text-white hoverable" title="If you want to change your personal/account details click here!">
-                                <a href="<?php echo 'userProfileChange.php?username=' . $_SESSION["username"]; ?>" >Modify Profile Details</a>
-                            </button>
-                        </div>
+                    <div class="row col-md-12 mx-auto bg-transparent border-0" style="width: 360px;">
+                        <a href="<?php echo 'userProfileChange.php?username=' . $_SESSION["username"]; ?>"
+                           class="btn-link col-md-12 w3-bar bg-success hoverStyle growLink">Click Here to Change
+                            Details</a>
                     </div>
                 </form>
 
 
             </div>
             <div class="col-lg-6 bg-secondary">
-                <div class="row justify-content-center align-items-center h-100">
-                    <div class="col-lg-6 text-center heading-section mb-5 align-self-center">
-                        <div class="paws">
-                            <span class="icon-paw"></span>
-                        </div>
-                        <h2 class="text-white mb-5">Most Recent Posts</h2>
-                        <ul class="list-unstyled text-left address">
-                            <li>
-                                <span class="d-block">Address:</span>
-                                <p>Melbourne St,South Birbane 4101 Austraila</p>
-                            </li>
-                            <li>
-                                <span class="d-block">Phone:</span>
-                                <p>+(000) 123 4567 89</p>
-                            </li>
-                            <li>
-                                <span class="d-block">Email:</span>
-                                <p>info@yourdomain.com</p>
-                            </li>
-                        </ul>
+                <div class="row mx-4 mt-3">
+                    <div class="mb-5">
+                        <div class="h1 mb-3 ChewyFont">Recent Posts of <u><?php echo $_SESSION["username"] ?></u></div>
+                        <?php
+                        include "include/db_connect.php";
+
+                        function htmlToPlainText($str)
+                        {
+                            $str = str_replace('&nbsp;', ' ', $str);
+                            $str = html_entity_decode($str, ENT_QUOTES | ENT_COMPAT, 'UTF-8');
+                            $str = html_entity_decode($str, ENT_HTML5, 'UTF-8');
+                            $str = html_entity_decode($str);
+                            $str = htmlspecialchars_decode($str);
+                            $str = strip_tags($str);
+
+                            return $str;
+                        }
+
+                        $userPosts_query = "SELECT * FROM posts";
+                        $userPosts_result = mysqli_query($Database_con, $userPosts_query);
+                        $userPosts_fetch = mysqli_fetch_array($userPosts_result);
+                        $postsLimit = 0;
+                        $stmt = $Database_con->prepare("SELECT * FROM posts order by postID");
+                        if (!$stmt) {
+                            echo "Error!<div class='bg-danger text-center' style='height: 100px'>";
+                            echo "<p class='pt-3'>Prepare failed: (" . $Database_con->errno . ") " . $Database_con->error . "</p><br>";
+                            echo "</div>";
+                            die();
+                        }
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if ($result->num_rows === 0) {
+                            echo '<div class="text-center ">';
+                            echo '<div class="panel-info my-1">No post to display!</div>';
+                            echo '<button class="text-success text-center bg-transparent border-0 m-2"><a href="newpost.php" target="_blank" class="btn-link col-md-12 hoverStyle">Add New Post</a></button></div>';
+                        } else {
+                            while ($row = $result->fetch_assoc()) {
+                                $postID = htmlentities($row['postID']);
+                                $visibilityType = htmlentities($row['visibilityType']);
+                                $postTitle = htmlentities($row['postTitle']);
+                                if ($postTitle == '') {
+                                    $row['postTitle'] = "[Post without Title!]";
+                                }
+                                $postContent = htmlentities($row['postContent']);
+                                $username = htmlentities($row['username']);
+                                $catID = htmlentities($row['catID']);
+                                $publishedDateTime = htmlentities($row['publishedDateTime']);
+                                $postViews = htmlentities($row['postViews']);
+                                if ($username === $_SESSION["username"] && $postsLimit < 5) {
+                                    $postsLimit++;
+                                    ?>
+                                    <div class="LatoFont">
+                                        <a href="<?php echo 'view.php?id=' . $postID . '&postedBy=' . $username ?>">
+                                            <p class="postList grow">
+                                                <?php echo $postsLimit . ". " . html_entity_decode(htmlToPlainText($postTitle)); ?>
+                                            </p>
+                                        </a>
+                                    </div>
+                                <?php }
+                            }
+                        } ?>
                     </div>
                 </div>
             </div>
@@ -155,11 +225,11 @@ $addressCountry = $userProfile['addressCountry'];
 </section>
 <?php getFooter(); ?>
 <script type="text/javascript">
-    $( ".hoverable" ).hover(
-        function() {
-            $( this ).addClass( "hoverStyle" );
-        }, function() {
-            $( this ).removeClass( "hoverStyle" );
+    $(".hoverable").hover(
+        function () {
+            $(this).addClass("hoverStyle");
+        }, function () {
+            $(this).removeClass("hoverStyle");
         }
     );
 </script>

@@ -20,6 +20,36 @@
     background-color: #563d7c;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
+
+/*CSS Web Safe Fonts*/
+.SansSerifFont {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.SerifFont {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.MonospaceFont {
+    font-family: "Courier New", Courier, monospace;
+}
+
+.RobotoFont {
+    font-family: 'Roboto', sans-serif;
+}
+
+.LatoFont {
+    font-family: 'Lato', sans-serif;
+}
+
+.CourgetteFont {
+    font-family: 'Courgette', cursive;
+}
+
+.ChewyFont {
+    font-family: 'Chewy', cursive;
+}
+
 /***************************** for form validation before submitting form data ***************************************/
 /*
 font-family: 'Roboto', sans-serif;
@@ -89,6 +119,15 @@ li a {
     transform: scale(1.1);
 }
 
+.growLink {
+    transition: all .3s ease-in-out;
+}
+
+.growLink:hover {
+    transform: scale(1.2);
+    color: #eeff0d !important;
+}
+
 /* Style the input fields */
 .input-field {
     width: 100%;
@@ -116,6 +155,17 @@ hr {
     border-style: inset;
     border-width: 20px;
     color: #e60d09;
+}
+
+.notAllowed {
+    cursor: not-allowed;
+}
+
+a:visited:before {
+    color: #FF7C00;
+    content: "\f00c";
+    font-family: FontAwesome, sans-serif;
+    text-decoration: none;
 }
 
 /****************************** for footer *****************************************/
@@ -225,4 +275,10 @@ hr {
 
 .padding {
     margin-bottom: 20px;
+}
+
+.largerCheckbox {
+    margin-top: -1px;
+    width: 30px;
+    height: 30px;
 }
