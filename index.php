@@ -11,7 +11,6 @@ include "include/functions.php";
     <title>Blog Application</title>
 </head>
 <!-- The scrollable area -->
-
 <body>
 
 <?php getNavigation(); ?>

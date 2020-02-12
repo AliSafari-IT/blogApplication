@@ -1,12 +1,16 @@
 <?php
 session_start();
 include "include/functions.php";
-
+if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
+    header("location: logout.php");
+    die();
+}
 $userProfile = getUserProfile($_GET['username']);
 if (!$userProfile) {
     header("location: login.php");
     die();
 }
+
 $username = $userProfile['username'];
 $firstname = $userProfile['firstname'];
 $lastname = $userProfile['lastname'];
@@ -140,7 +144,11 @@ $addressCountry = $userProfile['addressCountry'];
                             <?php } else { ?>
                                 <div>
                                     <p>There is no address details to display.</p>
-                                    <p><a href="userProfileChange.php">Add your address</a></p>
+                                    <p>
+                                        <a href="<?php echo 'userProfileChange.php?username=' . $_SESSION["username"]; ?>">
+                                            Add address
+                                        </a>
+                                    </p>
                                 </div>
                             <?php } ?>
                         </div>

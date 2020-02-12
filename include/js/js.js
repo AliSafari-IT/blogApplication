@@ -81,7 +81,7 @@ $(document).ready(function () {
         var method = $(this).data("method");
         var data = {};
         // $.each($('input'), function (key, value) {
-            // console.log(key + ':' + $(value).val());
+        // console.log(key + ':' + $(value).val());
         // });
         $(this).find('input').each(function (key, value) {
             // console.log(this);
@@ -92,7 +92,7 @@ $(document).ready(function () {
         });
         chk = document.getElementById("visibilityType").checked ? 1 : 0;
         data['visibilityType'] = chk;
-          console.log(data);
+        console.log(data);
 
         $.ajax({
             method: method,
@@ -225,7 +225,7 @@ $(document).ready(function () {
             }
             ;
         });
-         console.log(data);
+        console.log(data);
 
         $.ajax({
             method: method,
@@ -345,23 +345,18 @@ $(document).ready(function () {
         var method = $(this).data("method");
         var data = {};
         $.each($('input'), function (key, value) {
-            console.log(key + ':' + $(value).val());
+            console.log(key + ' --->  ' + $(value).val());
         });
         $(this).find('input').each(function (key, value) {
-            if (key == 0 || key == 13 || key==26){
             data[$(value).data("data")] = $(value).val();
-            };
         });
-        console.log(data);
-
         $.ajax({
             method: method,
             url: url,
+            // dataType: 'json',
             data: {request: request, data: data}
         }).done(function (jsonData) {
-
             var data = JSON.parse(jsonData);
-            // console.log(data);
 
             if (data['message']) {
                 showToast(data['message']);
@@ -369,7 +364,6 @@ $(document).ready(function () {
             if (data['redirect']) {
                 window.location.href = data['redirect'];
             }
-
         });
 
     });

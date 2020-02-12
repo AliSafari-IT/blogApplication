@@ -19,9 +19,7 @@ $addressHouseNr = $userProfile['addressHouseNr'];
 $addressPostalCode = $userProfile['addressPostalCode'];
 $addressCity = $userProfile['addressCity'];
 $addressCountry = $userProfile['addressCountry'];
-//Error messages
-$msg_firstname = "";
-$msg2_firstname = "";
+
 
 ?>
 
@@ -103,8 +101,6 @@ $msg2_firstname = "";
                             <label for="firstname">First name:</label>
                             <input type="text" id="firstname" name="firstname" data-data="firstname"
                                    class="form-control" value="<?php echo $firstname ?>">
-                            <?php echo "<p class='note'>" . $msg_firstname . "</p>"; ?>
-                            <?php echo "<p class='note'>" . $msg2_firstname . "</p>"; ?>
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="lastname">Last name:</label>
@@ -171,34 +167,37 @@ $msg2_firstname = "";
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="phoneGsmNr">Phone/GSM number</label>
-                            <input type="text" id="phoneGsmNr" class="form-control" value="<?php echo $phoneGsmNr ?>">
+                            <input type="text" id="phoneGsmNr" name="phoneGsmNr" data-data="phoneGsmNr"
+                                   class="form-control" value="<?php echo $phoneGsmNr ?>">
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="addressStreet">Street</label>
-                            <input type="text" id="addressStreet" class="form-control"
-                                   value="<?php echo $addressStreet ?>">
+                            <input type="text" id="addressStreet" name="addressStreet" data-data="addressStreet"
+                                   class="form-control" value="<?php echo $addressStreet ?>">
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="addressHouseNr">House Nr.</label>
-                            <input type="text" id="addressHouseNr" class="form-control"
-                                   value="<?php echo $addressHouseNr ?>">
+                            <input type="text" id="addressHouseNr" name="addressHouseNr" data-data="addressHouseNr"
+                                   class="form-control" value="<?php echo $addressHouseNr ?>">
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="addressPostalCode">Postal Code / Zip Code</label>
-                            <input type="text" id="addressPostalCode" class="form-control"
+                            <input type="text" id="addressPostalCode" name="addressPostalCode"
+                                   data-data="addressPostalCode" class="form-control"
                                    value="<?php echo $addressPostalCode ?>">
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="addressCity">City</label>
-                            <input type="text" id="addressCity" class="form-control" value="<?php echo $addressCity ?>">
+                            <input type="text" id="addressCity" name="addressCity" data-data="addressCity"
+                                   class="form-control" value="<?php echo $addressCity ?>">
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="addressCountry">Country</label>
-                            <input type="text" id="addressCountry" class="form-control"
-                                   value="<?php echo $addressCountry ?>">
+                            <input type="text" id="addressCountry" name="addressCountry" data-data="addressCountry"
+                                   class="form-control" value="<?php echo $addressCountry ?>">
                         </div>
                     </div>
                     <div class="row col-md-12 mx-auto bg-transparent border-0" style="width: 360px;">

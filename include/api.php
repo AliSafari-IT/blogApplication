@@ -42,7 +42,6 @@ if ($request == "loginUser") {
         }
     }
 
-
 } else if ($request == "registerUser") {
     $firstname = filter_var($data["firstname"], FILTER_SANITIZE_STRING);
     $lastname = filter_var($data["lastname"], FILTER_SANITIZE_STRING);
@@ -140,13 +139,62 @@ if ($request == "loginUser") {
 
 } else if ($request == "updateUserDetails") {
     session_start();
+    $firstname = filter_var($data["firstname"], FILTER_SANITIZE_STRING);
+    $lastname = filter_var($data["lastname"], FILTER_SANITIZE_STRING);
+    $email = $data["email"];
+    $iEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $username = filter_var($data["username"], FILTER_SANITIZE_STRING);
+    $userType = filter_var($data["userType"], FILTER_SANITIZE_STRING);
+    $addressStreet = filter_var($data["addressStreet"], FILTER_SANITIZE_STRING);
+    $addressHouseNr = filter_var($data["addressHouseNr"], FILTER_SANITIZE_STRING);
+    $addressCity = filter_var($data["addressCity"], FILTER_SANITIZE_STRING);
+    $addressPostalCode = filter_var($data["addressPostalCode"], FILTER_SANITIZE_STRING);
+    $addressCountry = filter_var($data["addressCountry"], FILTER_SANITIZE_STRING);
+    $phoneGsmNr = filter_var($data["phoneGsmNr"], FILTER_SANITIZE_STRING);
 
+    if (empty($firstname) || empty($lastname)) {    // **** First/Last names validation
+        $response['message'] = "First/Last names are required!";
+    } else if (!preg_match("/^[a-zA-Z -]*$/", $firstname) || !preg_match("/^[a-zA-Z -]*$/", $lastname)) {
+        $response['message'] = "Use only letters for First/Last names!";
+    } elseif (!$iEmail) {   // ************************ email validation
+        $response['message'] = "$email is not a valid email address!";
+    } else if ($email !== $_SESSION['email'] && checkEmailAlreadyTaken($email)) {
+        $response['message'] = "This email < $email > has already been used, please register using another email!";
+    } else {
 
-    $username = $_SESSION['username'];
+        $response['response'] = updateUserDetails(
+            $firstname,
+            $lastname,
+            $email,
+            $username,
+            $userType,
+            $addressStreet,
+            $addressHouseNr,
+            $addressCity,
+            $addressPostalCode,
+            $addressCountry,
+            $phoneGsmNr
+        );
 
-    $response['data'] = getUserProfile($username);
+        if ($response['response']) {
+            $_SESSION["email"] = $email;
+            $_SESSION["firstname"] = $firstname;
+            $_SESSION["lastname"] = $lastname;
+            $_SESSION["userType"] = $userType;
+            $_SESSION["addressStreet"] = $addressStreet;
+            $_SESSION["addressHouseNr"] = $addressHouseNr;
+            $_SESSION["addressCity"] = $addressCity;
+            $_SESSION["addressPostalCode"] = $addressPostalCode;
+            $_SESSION["addressCountry"] = $addressCountry;
+            $_SESSION["phoneGsmNr"] = $phoneGsmNr;
 
-} else if ($request == "updatePost") {
+            $response['message'] = "User Details Updated Successfully!";
+            $response['redirect'] = 'userProfile.php?username=' . $username;
+        } else {
+            $response['message'] = "Warning: user details are not saved! Try again!";
+        }
+
+}} else if ($request == "updatePost") {
     session_start();
 
     $id = $data['postID'];

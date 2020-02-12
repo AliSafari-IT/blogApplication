@@ -20,7 +20,7 @@ if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <p class="note-icon-summernote text-warning text-center"
-               style="font-family: 'Lalezar', cursive; color: #401603"> You need to be logged in to log out!</p>
+               style="font-family: 'Lalezar', cursive; color: #401603"> You are not logged in!</p>
             <p class="text-center text-info"><a href="index.php">[Homepage]</a></p>
             <p class="text-center text-info"><a href="login.php">[Login]</a></p>
             <p class="text-center text-info"><a href="register.php">[Register]</a></p>

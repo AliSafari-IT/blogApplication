@@ -19,6 +19,7 @@ function getPageHeader()
 {
     include "pageHeader.php";
 }
+
 function getPostMenuBg()
 {
     include "postMenuBg.php";
@@ -38,7 +39,7 @@ function loginUser($emailUsername, $password)
     }
 
     $stmt->execute();
-    $result = $stmt -> get_result();
+    $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
         session_start();
@@ -56,6 +57,12 @@ function loginUser($emailUsername, $password)
                 $_SESSION["firstname"] = $row['firstname'];
                 $_SESSION["lastname"] = $row['lastname'];
                 $_SESSION["userType"] = $row['userType'];
+                $_SESSION["addressStreet"] = $row['addressStreet'];
+                $_SESSION["addressHouseNr"] = $row['addressHouseNr'];
+                $_SESSION["addressCity"] = $row['addressCity'];
+                $_SESSION["addressPostalCode"] = $row['addressPostalCode'];
+                $_SESSION["addressCountry"] = $row['addressCountry'];
+                $_SESSION["phoneGsmNr"] = $row['phoneGsmNr'];
                 return true;
             } else {
                 session_start();
@@ -68,7 +75,7 @@ function loginUser($emailUsername, $password)
     $stmt->close();
 }
 
-function registerUser($firstname, $lastname, $email, $username, $password,$addressStreet,$addressHouseNr,$addressCity,$addressPostalCode,$addressCountry,$phoneGsmNr)
+function registerUser($firstname, $lastname, $email, $username, $password, $addressStreet, $addressHouseNr, $addressCity, $addressPostalCode, $addressCountry, $phoneGsmNr)
 {
 
     include "db_connect.php";
@@ -90,12 +97,43 @@ function registerUser($firstname, $lastname, $email, $username, $password,$addre
         $stmt = $Database_con->
         prepare("INSERT INTO users (firstname,lastname,email,username,password,userType,addressStreet,addressHouseNr,addressCity,addressPostalCode,addressCountry,phoneGsmNr) VALUES(?,?,?,?,?,DEFAULT,?,?,?,?,?,?)");
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bind_param("sssssssssss", $firstname, $lastname, $email, $username, $password,$addressStreet,$addressHouseNr,$addressCity,$addressPostalCode,$addressCountry,$phoneGsmNr);
+        $stmt->bind_param("sssssssssss", $firstname, $lastname, $email, $username, $password, $addressStreet, $addressHouseNr, $addressCity, $addressPostalCode, $addressCountry, $phoneGsmNr);
         $stmt->execute();
         $stmt->close();
 
         return true;
 
+    } else {
+        $stmt->close();
+        return false;
+    }
+}
+
+function updateUserDetails($firstname, $lastname, $email, $username, $userType, $addressStreet, $addressHouseNr, $addressCity, $addressPostalCode, $addressCountry, $phoneGsmNr)
+{
+
+    include "db_connect.php";
+
+    $firstname = ucwords($firstname);
+    $lastname = ucwords($lastname);
+    $email = strtolower($email);
+    $username = strtolower($username);
+    $addressCity = ucwords($addressCity);
+    $addressCountry = ucwords($addressCountry);
+
+    $stmt = $Database_con -> prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows >0) {
+//        echo "<script> console.log('good: available in database --> test')</script>";
+        $stmt = $Database_con->
+        prepare("UPDATE users SET firstname=?,lastname=?,email=?,userType=?,addressStreet=?,addressHouseNr=?,addressCity=?,addressPostalCode=?,addressCountry=?,phoneGsmNr=? WHERE username='$username'");
+        $stmt->bind_param("ssssssssss", $firstname, $lastname, $email, $userType, $addressStreet, $addressHouseNr, $addressCity, $addressPostalCode, $addressCountry, $phoneGsmNr);
+        $stmt->execute();
+        $stmt->close();
+        return true;
     } else {
         $stmt->close();
         return false;
@@ -267,7 +305,7 @@ function newPost($username, $visibility, $newPostTitleInput, $newPostContentInpu
 
     $stmt = $Database_con->prepare("INSERT INTO posts (visibilityType,postTitle,postContent,username,catID,publishedDateTime,postViews) 
 VALUES(?,?,?,?,DEFAULT,DEFAULT,DEFAULT)");
-    $stmt->bind_param("ssss", $visibilityType, $newPostTitleInput,$newPostContentInput,$username);
+    $stmt->bind_param("ssss", $visibilityType, $newPostTitleInput, $newPostContentInput, $username);
     $stmt->execute();
     $stmt->close();
     return true;
